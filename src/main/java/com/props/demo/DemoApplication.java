@@ -8,20 +8,27 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
 	private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-	@Value("#{${milestone.ids}}")
-	private Map<Integer, String> milestones;
+	@Value("#{'${only.legacy.milestone.ids}'.split(',')}")
+	private List<Integer> onlyLegacyIds;
+	private final Set<Integer> onlyLegacyIdsSet = new HashSet<>();
+
+	@Value("#{'${without.relation.milestone.ids}'.split(',')}")
+	private List<Integer> withoutRelationIds;
+	private final Set<Integer> withoutRelationIdsSet = new HashSet<>();
 
 	@PostConstruct
 	public void init() throws Exception {
-		LOGGER.info("POST CONSTRUCT -> " + milestones.toString());
+		onlyLegacyIdsSet.addAll(onlyLegacyIds);
+		withoutRelationIdsSet.addAll(withoutRelationIds);
 	}
 
 	public static void main(String[] args) {
@@ -30,7 +37,8 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		LOGGER.info("Map runtime class -> " + milestones.getClass());
+		LOGGER.info("Only legacy IDS -> " + onlyLegacyIdsSet);
+		LOGGER.info("Without relations IDS -> " + withoutRelationIdsSet);
 	}
 }
 
