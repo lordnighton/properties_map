@@ -18,12 +18,12 @@ public class DemoApplication implements CommandLineRunner {
 	private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Value("#{'${only.legacy.milestone.ids}'.split(',')}")
-	private List<Integer> onlyLegacyIds;
-	private final Set<Integer> onlyLegacyIdsSet = new HashSet<>();
+	private List<Long> onlyLegacyIds;
+	private final Set<Long> onlyLegacyIdsSet = new HashSet<>();
 
 	@Value("#{'${without.relation.milestone.ids}'.split(',')}")
-	private List<Integer> withoutRelationIds;
-	private final Set<Integer> withoutRelationIdsSet = new HashSet<>();
+	private List<Long> withoutRelationIds;
+	private final Set<Long> withoutRelationIdsSet = new HashSet<>();
 
 	// Make sets final explanation -->
 	// https://stackoverflow.com/questions/23906808/should-i-mark-object-attributes-as-volatile-if-i-init-them-in-postconstruct-in
