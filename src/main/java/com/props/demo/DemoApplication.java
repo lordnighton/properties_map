@@ -25,6 +25,8 @@ public class DemoApplication implements CommandLineRunner {
 	private List<Integer> withoutRelationIds;
 	private final Set<Integer> withoutRelationIdsSet = new HashSet<>();
 
+	// Make sets final explanation -->
+	// https://stackoverflow.com/questions/23906808/should-i-mark-object-attributes-as-volatile-if-i-init-them-in-postconstruct-in
 	@PostConstruct
 	public void init() throws Exception {
 		onlyLegacyIdsSet.addAll(onlyLegacyIds);
